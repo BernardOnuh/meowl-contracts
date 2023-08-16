@@ -4,27 +4,28 @@ import { Signer } from 'ethers';
 import { MeowlFeeSharingWithCompounding, IUniswapV2Router02, IRewardsDistribution } from '../typechain-types';
 
 describe('MeowlFeeSharingWithCompounding', function () {
-    let meowlFeeSharing: MeowlFeeSharingWithCompounding;
-    let owner: Signer;
-    let user1: Signer;
-    let mockUniswapRouter: IUniswapV2Router02;
-    let mockRewardsDistribution: IRewardsDistribution;
-  
-    before(async function () {
-        // Deploy the mock Uniswap router
-        const MockUniswapRouter = await ethers.getContractFactory('IUniswapV2Router02');
-        mockUniswapRouter = await MockUniswapRouter.deploy();
-    
-        const MockRewardsDistribution = await ethers.getContractFactory('IRewardsDistribution');
-        mockRewardsDistribution = await MockRewardsDistribution.deploy();
+  let meowlFeeSharing: MeowlFeeSharingWithCompounding;
+  let owner: Signer;
+  let user1: Signer;
+  let mockUniswapRouter: IUniswapV2Router02;
+  let mockRewardsDistribution: IRewardsDistribution;
 
-        // Deploy the contract with the mock Uniswap router
-        const MeowlFeeSharingWithCompounding = await ethers.getContractFactory('MeowlFeeSharingWithCompounding');
-        meowlFeeSharing = await MeowlFeeSharingWithCompounding.deploy(mockRewardsDistribution.address,mockUniswapRouter.address) as MeowlFeeSharingWithCompounding;
-    
-        // Get signers
-        [owner, user1] = await ethers.getSigners();
-      });
+  before(async function () {
+      // Use getContractAt to get an instance of the already deployed mock RewardsDistribution
+      mockRewardsDistribution = await ethers.getContractAt('IRewardsDistribution', 'REWARDS_DISTRIBUTION_ADDRESS_HERE');
+
+      // Get signers
+      [owner, user1] = await ethers.getSigners();
+    });
+
+  it('should allow deposits and withdrawals', async function () {
+      // Use getContractAt to get an instance of the already deployed mock Uniswap router
+      mockUniswapRouter = await ethers.getContractAt('IUniswapV2Router02', 'UNISWAP_ROUTER_ADDRESS_HERE');
+
+      // Deploy the contract with the mock Uniswap router
+      const MeowlFeeSharingWithCompounding = await ethers.getContractFactory('MeowlFeeSharingWithCompounding');
+      meowlFeeSharing = await MeowlFeeSharingWithCompounding.deploy("mockRewardsDistribution", "mockUniswapRouter") as MeowlFeeSharingWithCompounding;
+  });
 
     
   it('should allow deposits and withdrawals', async function () {
