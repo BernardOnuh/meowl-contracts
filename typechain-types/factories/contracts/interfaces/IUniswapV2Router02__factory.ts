@@ -251,6 +251,9 @@ const _abi = [
 ] as const;
 
 export class IUniswapV2Router02__factory {
+  deploy(): IUniswapV2Router02 | PromiseLike<IUniswapV2Router02> {
+      throw new Error('Method not implemented.');
+  }
   static readonly abi = _abi;
   static createInterface(): IUniswapV2Router02Interface {
     return new utils.Interface(_abi) as IUniswapV2Router02Interface;

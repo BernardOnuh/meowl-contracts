@@ -117,6 +117,9 @@ const _abi = [
 ] as const;
 
 export class IRewardsDistribution__factory {
+  deploy(): IRewardsDistribution | PromiseLike<IRewardsDistribution> {
+      throw new Error('Method not implemented.');
+  }
   static readonly abi = _abi;
   static createInterface(): IRewardsDistributionInterface {
     return new utils.Interface(_abi) as IRewardsDistributionInterface;

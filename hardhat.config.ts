@@ -6,6 +6,7 @@ import "@nomicfoundation/hardhat-verify";
 import * as dotenv from 'dotenv'
 dotenv.config()
 
+
 const RPC_URL = process.env.RPC_URL;
 if (!RPC_URL) {
   throw new Error("Missing env variable `RPC_URL`");
@@ -133,7 +134,14 @@ const config: any = {
   gasReporter: {
     coinmarketcap: CMC,
     currency: "eth"
-  }
+  },
+  paths: {
+    artifacts: './artifacts',
+    cache: './cache',
+    sources: './contracts',
+    tests: './test',
+  },
+
 };
 
 export default config;
